@@ -16,6 +16,7 @@ part of google_maps_flutter;
 /// Listeners are notified after changes have been applied on the platform side.
 ///
 /// Marker tap events can be received by adding callbacks to [onMarkerTapped].
+/// Map tap events can be received by adding callbacks to [onMapTapped].
 class GoogleMapController extends ChangeNotifier {
   GoogleMapController._(
       this._id, MethodChannel channel, CameraPosition initialCameraPosition)
@@ -39,6 +40,9 @@ class GoogleMapController extends ChangeNotifier {
 
   /// Callbacks to receive tap events for markers placed on this map.
   final ArgumentCallbacks<Marker> onMarkerTapped = ArgumentCallbacks<Marker>();
+
+  /// Callbacks to receive tap events for markers placed on this map.
+  final ArgumentCallbacks<LatLng> onMapTapped = ArgumentCallbacks<LatLng>();
 
   /// Callbacks to receive tap events for info windows on markers
   final ArgumentCallbacks<Marker> onInfoWindowTapped =
@@ -76,6 +80,12 @@ class GoogleMapController extends ChangeNotifier {
         final Marker marker = _markers[markerId];
         if (marker != null) {
           onMarkerTapped(marker);
+        }
+        break;
+      case 'map#onTap':
+        final LatLng latLng = LatLng(call.arguments['latitude'], call.arguments['longitude']);
+        if (latLng != null) {
+          onMapTapped(latLng);
         }
         break;
       case 'camera#onMoveStarted':
