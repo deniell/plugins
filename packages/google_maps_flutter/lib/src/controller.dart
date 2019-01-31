@@ -63,6 +63,11 @@ class GoogleMapController extends ChangeNotifier {
   CameraPosition get cameraPosition => _cameraPosition;
   CameraPosition _cameraPosition;
 
+  /// Returns bounds coordinates (southwest, northeast)
+  /// of the visible region for current projection from the platform side.
+  LatLngBounds get latLngBounds => _latLngBounds;
+  LatLngBounds _latLngBounds;
+
   final int _id;
 
   Future<dynamic> _handleMethodCall(MethodCall call) async {
@@ -113,6 +118,7 @@ class GoogleMapController extends ChangeNotifier {
   /// The returned [Future] completes after listeners have been notified.
   Future<void> _updateMapOptions(Map<String, dynamic> optionsUpdate) async {
     assert(optionsUpdate != null);
+    // update map options
     final dynamic json = await _channel.invokeMethod(
       'map#update',
       <String, dynamic>{
@@ -120,6 +126,11 @@ class GoogleMapController extends ChangeNotifier {
       },
     );
     _cameraPosition = CameraPosition.fromMap(json);
+    // update map bounds
+    final dynamic boundsJson = await _channel.invokeMethod(
+      'map#bounds'
+    );
+    _latLngBounds = LatLngBounds.fromList(boundsJson);
     notifyListeners();
   }
 

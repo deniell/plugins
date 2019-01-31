@@ -88,6 +88,17 @@ class LatLngBounds {
     );
   }
 
+  @visibleForTesting
+  static LatLngBounds fromMap(dynamic json) {
+    if (json == null) {
+      return null;
+    }
+    return LatLngBounds(
+      northeast: json['northeast'],
+      southwest: json['southwest'],
+    );
+  }
+
   @override
   String toString() {
     return '$runtimeType($southwest, $northeast)';

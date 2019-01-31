@@ -117,6 +117,22 @@ class Convert {
     return data;
   }
 
+  /**
+   * Serialize bounds object
+   *
+   * @param bounds
+   * @return json object
+   */
+  static Object toJson(LatLngBounds bounds) {
+    if (bounds == null) {
+      return null;
+    }
+    final Map<String, Object> data = new HashMap<>();
+    data.put("southwest", bounds.southwest);
+    data.put("northeast", bounds.northeast);
+    return data;
+  }
+
   private static Object toJson(LatLng latLng) {
     return Arrays.asList(latLng.latitude, latLng.longitude);
   }

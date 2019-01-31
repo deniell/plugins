@@ -142,6 +142,15 @@ final class GoogleMapController
     return trackCameraPosition ? googleMap.getCameraPosition() : null;
   }
 
+  /**
+   * Get boundary coordinates (southwest, northeast)
+   *
+   * @return LatLngBounds
+   */
+  private LatLngBounds getLatLngBounds() {
+    return googleMap.getProjection().getVisibleRegion().latLngBounds;
+  }
+
   private MarkerBuilder newMarkerBuilder() {
     return new MarkerBuilder(this);
   }
@@ -236,6 +245,11 @@ final class GoogleMapController
           final MarkerController marker = marker(markerId);
           Convert.interpretMarkerOptions(call.argument("options"), marker);
           result.success(null);
+          break;
+        }
+      case "map#bounds":
+        {
+          result.success(Convert.toJson(getLatLngBounds()));
           break;
         }
       default:
