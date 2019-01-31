@@ -94,8 +94,8 @@ class LatLngBounds {
       return null;
     }
     return LatLngBounds(
-      northeast: json['northeast'],
-      southwest: json['southwest'],
+      northeast: LatLng._fromJson(json['northeast']),
+      southwest: LatLng._fromJson(json['southwest']),
     );
   }
 

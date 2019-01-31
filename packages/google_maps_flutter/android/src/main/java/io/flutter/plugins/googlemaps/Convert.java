@@ -128,8 +128,8 @@ class Convert {
       return null;
     }
     final Map<String, Object> data = new HashMap<>();
-    data.put("southwest", bounds.southwest);
-    data.put("northeast", bounds.northeast);
+    data.put("southwest", toJson(bounds.southwest));
+    data.put("northeast", toJson(bounds.northeast));
     return data;
   }
 
