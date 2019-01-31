@@ -130,7 +130,7 @@ class GoogleMapController extends ChangeNotifier {
     final dynamic boundsJson = await _channel.invokeMethod(
       'map#bounds'
     );
-    _latLngBounds = LatLngBounds.fromList(boundsJson);
+    _latLngBounds = LatLngBounds.fromMap(boundsJson);
     notifyListeners();
   }
 
