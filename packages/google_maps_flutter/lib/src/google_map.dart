@@ -137,27 +137,16 @@ class _GoogleMapState extends State<GoogleMap> {
     _googleMapOptions = _GoogleMapOptions.fromWidget(widget);
   }
 
-//  @override
-//  void didUpdateWidget(GoogleMap oldWidget) {
-//    super.didUpdateWidget(oldWidget);
-//    final _GoogleMapOptions newOptions = _GoogleMapOptions.fromWidget(widget);
-//    final Map<String, dynamic> updates =
-//        _googleMapOptions.updatesMap(newOptions);
-//    _updateOptions(updates);
-//    _googleMapOptions = newOptions;
-//  }
-
-  ///
-  /// Update map
-  ///
-  Future<void> updateMap() async {
+  @override
+  void didUpdateWidget(GoogleMap oldWidget) {
+    super.didUpdateWidget(oldWidget);
     final _GoogleMapOptions newOptions = _GoogleMapOptions.fromWidget(widget);
     final Map<String, dynamic> updates =
-    _googleMapOptions.updatesMap(newOptions);
+        _googleMapOptions.updatesMap(newOptions);
     _updateOptions(updates);
     _googleMapOptions = newOptions;
   }
-  
+
   void _updateOptions(Map<String, dynamic> updates) async {
     if (updates.isEmpty) {
       return;
