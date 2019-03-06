@@ -135,7 +135,7 @@ class GoogleMapController extends ChangeNotifier {
     _cameraPosition = CameraPosition.fromMap(json);
     // update map bounds
     final dynamic boundsJson = await _channel.invokeMethod(
-      'map#bounds'
+      'map#bounds',
     );
     _latLngBounds = LatLngBounds.fromMap(boundsJson);
     notifyListeners();
